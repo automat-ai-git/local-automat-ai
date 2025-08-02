@@ -11,6 +11,7 @@ This repository contains scripts for automatic configuration of:
 - **Caddy** - a modern web server with automatic HTTPS
 - **gpt2giga** - connector to GigaChat
 - **Qdrant and Postgres** - modern vector db store
+- **Ollama** - local ollama with models
 
 The system is configured to work with your domain name and automatically obtains Let's Encrypt SSL certificates.
 
@@ -117,3 +118,4 @@ This project is distributed under the MIT License.
 ## Author
 
 automat-ai based on @codegeek
+
