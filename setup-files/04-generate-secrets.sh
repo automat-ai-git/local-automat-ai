@@ -65,7 +65,7 @@ N8N_DEFAULT_USER_EMAIL=$USER_EMAIL
 N8N_DEFAULT_USER_PASSWORD=$N8N_PASSWORD
 
 # n8n host configuration
-SUBDOMAIN=n8n
+SUBDOMAIN=n8n-p
 GENERIC_TIMEZONE=$GENERIC_TIMEZONE
 
 # Settings for Flowise
@@ -99,4 +99,5 @@ echo "FLOWISE_PASSWORD=\"$FLOWISE_PASSWORD\"" >> ./setup-files/passwords.txt
 echo "✅ Secret keys and passwords successfully generated"
 
 exit 0 
+
 
