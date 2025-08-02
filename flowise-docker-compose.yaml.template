@@ -9,6 +9,8 @@ services:
       - PORT=3001
       - FLOWISE_USERNAME=${FLOWISE_USERNAME}
       - FLOWISE_PASSWORD=${FLOWISE_PASSWORD}
+    ports:
+      - 3001:3001
     volumes:
       - /opt/flowise:/root/.flowise
     networks:
@@ -32,3 +34,4 @@ networks:
   app-network:
 
     external: true 
+
