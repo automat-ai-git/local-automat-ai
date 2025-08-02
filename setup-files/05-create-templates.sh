@@ -38,6 +38,8 @@ services:
       - N8N_DEFAULT_USER_EMAIL=\${N8N_DEFAULT_USER_EMAIL}
       - N8N_DEFAULT_USER_PASSWORD=\${N8N_DEFAULT_USER_PASSWORD}
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
+    ports:
+      - 5678:5678    
     volumes:
       - n8n_data:/home/node/.n8n
       - /opt/n8n/files:/files
@@ -85,6 +87,8 @@ services:
       - PORT=3001
       - FLOWISE_USERNAME=\${FLOWISE_USERNAME}
       - FLOWISE_PASSWORD=\${FLOWISE_PASSWORD}
+    ports:
+      - 3001:3001
     volumes:
       - /opt/flowise:/root/.flowise
     networks:
@@ -118,11 +122,11 @@ fi
 # Create Caddyfile
 echo "Creating Caddyfile..."
 cat > Caddyfile << EOL
-n8n.${DOMAIN_NAME} {
+n8n-p.${DOMAIN_NAME} {
     reverse_proxy n8n:5678
 }
 
-flowise.${DOMAIN_NAME} {
+flowise-p.${DOMAIN_NAME} {
     reverse_proxy flowise:3001
 }
 EOL
@@ -139,4 +143,5 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "✅ Templates and configuration files successfully created"
+
 exit 0 
