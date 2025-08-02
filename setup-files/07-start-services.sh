@@ -46,7 +46,7 @@ fi
 
 # Check that all containers are running
 echo "Checking running containers..."
-sleep 5
+sleep 15
 
 if ! sudo docker ps | grep -q "n8n"; then
   echo "ERROR: Container n8n is not running"
@@ -64,4 +64,5 @@ if ! sudo docker ps | grep -q "flowise"; then
 fi
 
 echo "✅ Services n8n, Flowise and Caddy successfully started"
+
 exit 0 
