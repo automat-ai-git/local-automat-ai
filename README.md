@@ -9,6 +9,8 @@ This repository contains scripts for automatic configuration of:
 - **n8n** - a powerful open-source workflow automation platform
 - **Flowise** - a tool for creating customizable AI flows
 - **Caddy** - a modern web server with automatic HTTPS
+- **gpt2giga** - connector to GigaChat
+- **Qdrant and Postgres** - modern vector db store
 
 The system is configured to work with your domain name and automatically obtains Let's Encrypt SSL certificates.
 
@@ -23,7 +25,7 @@ The system is configured to work with your domain name and automatically obtains
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/miolamio/cloud-local-n8n-flowise.git && cd cloud-local-n8n-flowise
+   git clone https://github.com/automat-ai-git/local-automat-ai.git && cd local-automat-ai
    ```
 
 2. Make the script executable:
@@ -71,7 +73,7 @@ Login credentials will be displayed at the end of the installation process.
   - `06-setup-firewall.sh` - firewall setup
   - `07-start-services.sh` - service launch
 - `n8n-docker-compose.yaml.template` - docker-compose template for n8n and Caddy
-- `flowise-docker-compose.yaml.template` - docker-compose template for Flowise
+- `flowise-docker-compose.yaml.template` - docker-compose template for Flowise and GigaChat and VectorDB`s Qdrant PostgresSQL
 
 ## Managing services
 
@@ -114,4 +116,4 @@ This project is distributed under the MIT License.
 
 ## Author
 
-@codegeek
+automat-ai based on @codegeek
