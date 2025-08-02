@@ -77,7 +77,7 @@ FLOWISE_PASSWORD=$FLOWISE_PASSWORD
 #   GIGACHAT_BASE_URL=
    GIGACHAT_MODEL=GigaChat
    GIGACHAT_VERIFY_SSL_CERTS=False
-   GIGAHAT_API=$GIGACHAT_API
+   GIGACHAT_API=$GIGACHAT_API
    
 # Domain settings
 DOMAIN_NAME=$DOMAIN_NAME
@@ -99,3 +99,4 @@ echo "FLOWISE_PASSWORD=\"$FLOWISE_PASSWORD\"" >> ./setup-files/passwords.txt
 echo "✅ Secret keys and passwords successfully generated"
 
 exit 0 
+
