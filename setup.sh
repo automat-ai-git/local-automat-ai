@@ -51,6 +51,13 @@ main() {
   DEFAULT_TIMEZONE=$(timedatectl show --property=Timezone --value 2>/dev/null || echo "UTC")
   read -p "Enter your timezone (default: $DEFAULT_TIMEZONE): " GENERIC_TIMEZONE
   GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-$DEFAULT_TIMEZONE}
+
+  # Request GigaChat_API
+  read -p "Enter your GigaChat_API (see on https://developers.sber.ru/portal/products/gigachat-api): " GIGACHAT_API
+  while [[ -z "$GIGACHAT_API" ]]; do
+    echo "GigaChat API cannot be empty"
+    read -p "Enter your GigaChat_API (see on https://developers.sber.ru/portal/products/gigachat-api): " GIGACHAT_API
+  done
   
   # Create setup-files directory if it doesn't exist
   if [ ! -d "setup-files" ]; then
@@ -132,4 +139,5 @@ main() {
 }
 
 # Run main function
+
 main 
