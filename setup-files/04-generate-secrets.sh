@@ -4,6 +4,7 @@
 USER_EMAIL=$1
 DOMAIN_NAME=$2
 GENERIC_TIMEZONE=$3
+GIGACHAT_API=$4
 
 if [ -z "$USER_EMAIL" ] || [ -z "$DOMAIN_NAME" ]; then
   echo "ERROR: Email or domain name not specified"
@@ -71,6 +72,13 @@ GENERIC_TIMEZONE=$GENERIC_TIMEZONE
 FLOWISE_USERNAME=admin
 FLOWISE_PASSWORD=$FLOWISE_PASSWORD
 
+#   GIGACHAT_USER=
+#   GIGACHAT_PASSWORD=
+#   GIGACHAT_BASE_URL=
+   GIGACHAT_MODEL=GigaChat
+   GIGACHAT_VERIFY_SSL_CERTS=False
+   GIGAHAT_API=$GIGACHAT_API
+   
 # Domain settings
 DOMAIN_NAME=$DOMAIN_NAME
 EOL
@@ -89,4 +97,5 @@ echo "N8N_PASSWORD=\"$N8N_PASSWORD\"" > ./setup-files/passwords.txt
 echo "FLOWISE_PASSWORD=\"$FLOWISE_PASSWORD\"" >> ./setup-files/passwords.txt
 
 echo "✅ Secret keys and passwords successfully generated"
+
 exit 0 
