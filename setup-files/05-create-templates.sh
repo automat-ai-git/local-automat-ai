@@ -94,6 +94,20 @@ services:
     networks:
       - app-network
 
+  gpt2giga:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gpt2giga
+    ports:
+      - "8090:8090"
+    restart: unless-stopped
+    environment:
+      PROXY_HOST: 0.0.0.0
+      GIGACHAT_CREDENTIALS: ${GIGACHAT_API}
+    networks:
+      - app-network
+
 networks:
   app-network:
     external: true
@@ -145,3 +159,4 @@ fi
 echo "✅ Templates and configuration files successfully created"
 
 exit 0 
+
