@@ -27,7 +27,7 @@ generate_random_string() {
 # Function to generate safe passwords (no special bash characters)
 generate_safe_password() {
   length=$1
-  cat /dev/urandom | tr -dc 'a-zA-Z0-9!_=+#$&%' | fold -w ${length} | head -n 1
+  cat /dev/urandom | tr -dc 'a-zA-Z0-9!_=' | fold -w ${length} | head -n 1
 }
 
 # Generating keys and passwords
