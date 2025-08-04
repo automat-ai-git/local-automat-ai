@@ -21,7 +21,7 @@ if ! id "n8n" &>/dev/null; then
   
   echo "✅ Created n8n user with password: $N8N_PASSWORD"
   echo "⚠️ IMPORTANT: Write down this password, you will need it for working with Docker!"
-  
+
   sudo usermod -aG docker n8n
   if [ $? -ne 0 ]; then
     echo "WARNING: Failed to add n8n user to docker group"
@@ -43,6 +43,9 @@ else
     fi
   fi
 fi
+
+# Save passwords for future use - using quotes to properly handle special characters
+  echo "n8n user in Ubuntu \"$N8N_PASSWORD\"" > ./setup-files/passwords.txt
 
 # Creating necessary directories
 echo "Creating directories..."

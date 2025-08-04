@@ -46,7 +46,7 @@ fi
 
 # Check that all containers are running
 echo "Checking running containers..."
-sleep 15
+sleep 5
 
 if ! sudo docker ps | grep -q "n8n"; then
   echo "ERROR: Container n8n is not running"
@@ -63,6 +63,10 @@ if ! sudo docker ps | grep -q "flowise"; then
   exit 1
 fi
 
-echo "✅ Services n8n, Flowise and Caddy successfully started"
+echo ""
+echo "Ollama pull models"
+docker exec -it ollama ollama pull qwen3:0.6b
+docker exec -it ollama ollama pull nomic-embed-text
 
+echo "✅ Services n8n, Flowise and Caddy successfully started"
 exit 0 

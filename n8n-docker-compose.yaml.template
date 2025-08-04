@@ -6,6 +6,9 @@ volumes:
   caddy_data:
     external: true
   caddy_config:
+  ollama_storage:
+  qdrant_storage:
+  db-data:
 
 services:
   n8n:
@@ -13,6 +16,11 @@ services:
     container_name: n8n
     restart: unless-stopped
     environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_USER=postgres
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_POSTGRESDB_DATABASE=postgres
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
       - N8N_USER_MANAGEMENT_DISABLED=false
       - N8N_DIAGNOSTICS_ENABLED=false
@@ -21,19 +29,57 @@ services:
       - N8N_DEFAULT_USER_EMAIL=${N8N_DEFAULT_USER_EMAIL}
       - N8N_DEFAULT_USER_PASSWORD=${N8N_DEFAULT_USER_PASSWORD}
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
-      - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=https
-      - NODE_ENV=production
-      - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
-      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
     ports:
-      - 5678:5678
+      - 5678:5678    
     volumes:
       - n8n_data:/home/node/.n8n
       - /opt/n8n/files:/files
     networks:
       - app-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant
+    restart: unless-stopped
+    expose:
+      - 6333/tcp
+      - 6334/tcp
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    networks:
+      - app-network
+#    environment:
+#      - QDRANT__SERVICE__API_KEY=${QDRANT__SERVICE__API_KEY}
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+#      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
 
   caddy:
     image: caddy:2
@@ -49,8 +95,20 @@ services:
     networks:
       - app-network
 
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    restart: unless-stopped
+    volumes:
+      - ollama_storage:/root/.ollama
+    container_name: ollama
+    environment:
+      - OLLAMA_MAX_LOADED_MODELS=1
+    networks:
+      - app-network
+
 networks:
   app-network:
     name: app-network
-
-    driver: bridge 
+    driver: bridge

@@ -11,6 +11,8 @@ services:
       - FLOWISE_PASSWORD=${FLOWISE_PASSWORD}
     ports:
       - 3001:3001
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - /opt/flowise:/root/.flowise
     networks:
@@ -32,6 +34,4 @@ services:
 
 networks:
   app-network:
-
-    external: true 
-
+    external: true

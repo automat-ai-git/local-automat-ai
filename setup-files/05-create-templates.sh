@@ -23,6 +23,9 @@ volumes:
   caddy_data:
     external: true
   caddy_config:
+  ollama_storage:
+  qdrant_storage:
+  db-data:
 
 services:
   n8n:
@@ -30,6 +33,11 @@ services:
     container_name: n8n
     restart: unless-stopped
     environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_USER=postgres
+      - DB_POSTGRESDB_PASSWORD=\${POSTGRES_PASSWORD}
+      - DB_POSTGRESDB_DATABASE=postgres
       - N8N_ENCRYPTION_KEY=\${N8N_ENCRYPTION_KEY}
       - N8N_USER_MANAGEMENT_DISABLED=false
       - N8N_DIAGNOSTICS_ENABLED=false
@@ -45,6 +53,50 @@ services:
       - /opt/n8n/files:/files
     networks:
       - app-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant
+    restart: unless-stopped
+    expose:
+      - 6333/tcp
+      - 6334/tcp
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    networks:
+      - app-network
+#    environment:
+#      - QDRANT__SERVICE__API_KEY=\${QDRANT__SERVICE__API_KEY}
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: \${POSTGRES_PASSWORD}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+#      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
 
   caddy:
     image: caddy:2
@@ -57,6 +109,19 @@ services:
       - /opt/n8n/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
+    networks:
+      - app-network
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    restart: unless-stopped
+    volumes:
+      - ollama_storage:/root/.ollama
+    container_name: ollama
+    environment:
+      - OLLAMA_MAX_LOADED_MODELS=1
     networks:
       - app-network
 
@@ -89,6 +154,8 @@ services:
       - FLOWISE_PASSWORD=\${FLOWISE_PASSWORD}
     ports:
       - 3001:3001
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - /opt/flowise:/root/.flowise
     networks:
@@ -104,7 +171,7 @@ services:
     restart: unless-stopped
     environment:
       PROXY_HOST: 0.0.0.0
-      GIGACHAT_CREDENTIALS: ${GIGACHAT_API}
+      GIGACHAT_CREDENTIALS: \${GIGACHAT_API}
     networks:
       - app-network
 
@@ -136,11 +203,11 @@ fi
 # Create Caddyfile
 echo "Creating Caddyfile..."
 cat > Caddyfile << EOL
-n8n-p.${DOMAIN_NAME} {
+n8n-v.${DOMAIN_NAME} {
     reverse_proxy n8n:5678
 }
 
-flowise-p.${DOMAIN_NAME} {
+flowise-v.${DOMAIN_NAME} {
     reverse_proxy flowise:3001
 }
 EOL
@@ -159,4 +226,3 @@ fi
 echo "✅ Templates and configuration files successfully created"
 
 exit 0 
-

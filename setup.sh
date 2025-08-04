@@ -20,7 +20,7 @@ show_progress() {
 
 # Main installation function
 main() {
-  show_progress "🚀 Starting installation of n8n, Flowise, and Caddy"
+  show_progress "🚀 Starting installation of n8n, Flowise, and Caddy. DB Qdrant and PetgreSQL. gpt2giga for GigaChat"
   
   # Check administrator rights
   if [ "$EUID" -ne 0 ]; then
@@ -85,7 +85,7 @@ main() {
   
   # Step 4: Secret key generation
   show_progress "Step 4/7: Secret key generation"
-  ./setup-files/04-generate-secrets.sh "$USER_EMAIL" "$DOMAIN_NAME" "$GENERIC_TIMEZONE"
+  ./setup-files/04-generate-secrets.sh "$USER_EMAIL" "$DOMAIN_NAME" "$GENERIC_TIMEZONE" "$GIGACHAT_API"
   check_success "secret key generation"
   
   # Step 5: Template creation
@@ -102,10 +102,13 @@ main() {
   show_progress "Step 7/7: Service launch"
   ./setup-files/07-start-services.sh
   check_success "service launch"
+
+  # Step 8: Models download
   
   # Load generated passwords
   N8N_PASSWORD=""
   FLOWISE_PASSWORD=""
+#  POSTGRES_PASSWORD=""
   if [ -f "./setup-files/passwords.txt" ]; then
     source ./setup-files/passwords.txt
   fi
@@ -123,6 +126,15 @@ main() {
   echo "Login credentials for Flowise:"
   echo "Username: admin"
   echo "Password: ${FLOWISE_PASSWORD:-<check the .env file>}"
+  echo ""
+  echo "Postgres:"
+  echo "Username: postgres"
+  echo "Database: postgres"
+  echo "Host: postgres"
+  echo "Password: ${POSTGRES_PASSWORD:-<see the .env file>}"
+  echo ""
+  echo "Ollama without any password and keys: base URL=> http://ollama:11434"
+  echo "Qdrant without any password and keys: base URL=> http://qdrant:6333"
   echo ""
   echo "Please note that for the domain name to work, you need to configure DNS records"
   echo "pointing to the IP address of this server."
