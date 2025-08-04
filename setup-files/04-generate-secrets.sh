@@ -43,12 +43,6 @@ if [ -z "$N8N_USER_MANAGEMENT_JWT_SECRET" ]; then
   exit 1
 fi
 
-#QDRANT__SERVICE__API_KEY=$(generate_random_string 40)
-#if [ -z "$QDRANT__SERVICE__API_KEY=" ]; then
-#  echo "ERROR: Failed to generate API secret for Qdrant"
-#  exit 1
-#fi
-
 # Use safer password generation function (alphanumeric only)
 N8N_PASSWORD=$(generate_safe_password 16)
 if [ -z "$N8N_PASSWORD" ]; then
@@ -77,7 +71,7 @@ N8N_DEFAULT_USER_EMAIL=$USER_EMAIL
 N8N_DEFAULT_USER_PASSWORD=$N8N_PASSWORD
 
 # n8n host configuration
-SUBDOMAIN=n8n-v
+SUBDOMAIN=n8n
 GENERIC_TIMEZONE=$GENERIC_TIMEZONE
 
 # Settings for Flowise
@@ -88,9 +82,6 @@ FLOWISE_PASSWORD=$FLOWISE_PASSWORD
 POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 POSTGRES_USER=postgres
 POSTGRES_DB=postgres
-
-#Qdrant
-#QDRANT__SERVICE__API_KEY=$QDRANT__SERVICE__API_KEY
 
 # GigaChat settings for gpt2giga
 #   GIGACHAT_USER=
@@ -113,13 +104,11 @@ echo "Secret keys generated and saved to .env file"
 echo "Password for n8n: $N8N_PASSWORD"
 echo "Password for Flowise: $FLOWISE_PASSWORD"
 echo "Password for Postgres: $POSTGRES_PASSWORD"
-#echo "API key for Qdrant: $QDRANT__SERVICE__API_KEY"
 
 # Save passwords for future use - using quotes to properly handle special characters
 echo "N8N_PASSWORD=\"$N8N_PASSWORD\"" >> ./setup-files/passwords.txt
 echo "FLOWISE_PASSWORD=\"$FLOWISE_PASSWORD\"" >> ./setup-files/passwords.txt
 echo "POSTRGRES_PASSWORD=\"$POSTGRES_PASSWORD\"" >> ./setup-files/passwords.txt
-#echo "QDRANT__SERVICE__API_KEY=\"$QDRANT__SERVICE__API_KEY\"" >> ./setup-files/passwords.txt
 
 echo "✅ Secret keys and passwords successfully generated"
 

@@ -47,7 +47,7 @@ services:
       - N8N_DEFAULT_USER_PASSWORD=\${N8N_DEFAULT_USER_PASSWORD}
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
     ports:
-      - 5678:5678    
+      - 5678:5678 
     volumes:
       - n8n_data:/home/node/.n8n
       - /opt/n8n/files:/files
@@ -68,8 +68,6 @@ services:
       - qdrant_storage:/qdrant/storage
     networks:
       - app-network
-#    environment:
-#      - QDRANT__SERVICE__API_KEY=\${QDRANT__SERVICE__API_KEY}
 
   postgres:
     image: postgres:16-alpine
@@ -86,7 +84,6 @@ services:
       POSTGRES_PASSWORD: \${POSTGRES_PASSWORD}
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-#      - ../2. Init Database:/docker-entrypoint-initdb.d
       - db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
@@ -203,11 +200,11 @@ fi
 # Create Caddyfile
 echo "Creating Caddyfile..."
 cat > Caddyfile << EOL
-n8n-v.${DOMAIN_NAME} {
+n8n.${DOMAIN_NAME} {
     reverse_proxy n8n:5678
 }
 
-flowise-v.${DOMAIN_NAME} {
+flowise.${DOMAIN_NAME} {
     reverse_proxy flowise:3001
 }
 EOL
