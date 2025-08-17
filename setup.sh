@@ -53,11 +53,11 @@ main() {
   GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-$DEFAULT_TIMEZONE}
 
   # Request GigaChat_API
-  read -p "Enter your GigaChat_API (see on https://developers.sber.ru/portal/products/gigachat-api): " GIGACHAT_API
-  while [[ -z "$GIGACHAT_API" ]]; do
-    echo "GigaChat API cannot be empty"
-    read -p "Enter your GigaChat_API (see on https://developers.sber.ru/portal/products/gigachat-api): " GIGACHAT_API
-  done
+  #read -p "Enter your GigaChat_API (see on https://developers.sber.ru/portal/products/gigachat-api): " GIGACHAT_API
+  #while [[ -z "$GIGACHAT_API" ]]; do
+  #  echo "GigaChat API cannot be empty"
+  #  read -p "Enter your GigaChat_API (see on https://developers.sber.ru/portal/products/gigachat-api): " GIGACHAT_API
+  #done
   
   # Create setup-files directory if it doesn't exist
   if [ ! -d "setup-files" ]; then
@@ -85,7 +85,7 @@ main() {
   
   # Step 4: Secret key generation
   show_progress "Step 4/7: Secret key generation"
-  ./setup-files/04-generate-secrets.sh "$USER_EMAIL" "$DOMAIN_NAME" "$GENERIC_TIMEZONE" "$GIGACHAT_API"
+  ./setup-files/04-generate-secrets.sh "$USER_EMAIL" "$DOMAIN_NAME" "$GENERIC_TIMEZONE" #"$GIGACHAT_API"
   check_success "secret key generation"
   
   # Step 5: Template creation

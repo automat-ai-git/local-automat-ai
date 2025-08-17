@@ -1,121 +1,119 @@
 # Cloud-Local n8n & Flowise Setup
 
-Automated installation script for n8n and Flowise with reverse proxy server Caddy for secure access via HTTPS.
+Автоматизированный установочный скрипт для n8n и Flowise с обратным прокси-сервером Caddy для безопасного доступа по HTTPS.
 
-## Description
+## Описание
 
-This repository contains scripts for automatic configuration of:
+Этот репозиторий содержит скрипты для автоматической настройки:
 
-- **n8n** - a powerful open-source workflow automation platform
-- **Flowise** - a tool for creating customizable AI flows
-- **Caddy** - a modern web server with automatic HTTPS
-- **gpt2giga** - connector to GigaChat
-- **Qdrant and Postgres** - modern vector db store
-- **Ollama** - local ollama with models
+- **n8n** — мощной платформы для автоматизации рабочих процессов с открытым исходным кодом.
+- **Flowise** — инструмента для создания настраиваемых AI-потоков.
+- **Caddy** — современного веб-сервера с автоматическим HTTPS.
+- **gpt2giga** — коннектора к GigaChat.
+- **Qdrant and Postgres** — современных векторных хранилищ БД.
+- **Ollama** — локального ollama с моделями.
 
-The system is configured to work with your domain name and automatically obtains Let's Encrypt SSL certificates.
+Система настроена на работу с вашим доменным именем и автоматически получает SSL-сертификаты Let's Encrypt.
 
-## Requirements
+## Требования
 
-- Ubuntu 22.04 
-- Domain name pointing to your server's IP address
-- Server access with administrator rights (sudo)
-- Open ports 80, 443 
+- Ubuntu 22.04
+- Доменное имя, указывающее на IP-адрес вашего сервера.
+- Доступ к серверу с правами администратора (sudo).
+- Открытые порты 80, 443.
 
-## Installation
+## Установка
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/automat-ai-git/local-automat-ai.git && cd local-automat-ai
-   ```
+1.  Клонируйте репозиторий:
+    ```bash
+    git clone [https://github.com/automat-ai-git/local-automat-ai.git](https://github.com/automat-ai-git/local-automat-ai.git) && cd local-automat-ai
+    ```
+2.  Сделайте скрипт исполняемым:
+    ```bash
+    chmod +x setup.sh
+    ```
+3.  Запустите установочный скрипт:
+    ```bash
+    ./setup.sh
+    ```
+4.  Следуйте инструкциям в терминале:
+    - Введите ваше доменное имя (например, example.com).
+    - Введите ваш email (будет использоваться для входа в n8n и Let's Encrypt).
 
-2. Make the script executable:
-   ```bash
-   chmod +x setup.sh
-   ```
+## Что делает установочный скрипт
 
-3. Run the installation script:
-   ```bash
-   ./setup.sh
-   ```
+1.  **Обновление системы**: обновляет список пакетов и устанавливает необходимые зависимости.
+2.  **Установка Docker**: устанавливает Docker Engine и Docker Compose.
+3.  **Настройка каталогов**: создает пользователя n8n и необходимые каталоги.
+4.  **Генерация секретов**: создает случайные пароли и ключи шифрования.
+5.  **Создание конфигурационных файлов**: генерирует файлы docker-compose и Caddyfile.
+6.  **Настройка брандмауэра**: открывает необходимые порты.
+7.  **Запуск служб**: запускает контейнеры Docker.
 
-4. Follow the instructions in the terminal:
-   - Enter your domain name (e.g., example.com)
-   - Enter your email (will be used for n8n login and Let's Encrypt)
+## Доступ к службам
 
-## What the installation script does
-
-1. **System update** - updates the package list and installs necessary dependencies
-2. **Docker installation** - installs Docker Engine and Docker Compose
-3. **Directory setup** - creates n8n user and necessary directories
-4. **Secret generation** - creates random passwords and encryption keys
-5. **Configuration file creation** - generates docker-compose files and Caddyfile
-6. **Firewall setup** - opens necessary ports
-7. **Service launch** - starts Docker containers
-
-## Accessing services
-
-After installation completes, you will be able to access services at the following URLs:
+После завершения установки вы сможете получить доступ к службам по следующим URL-адресам:
 
 - **n8n**: https://n8n.your-domain.xxx
 - **Flowise**: https://flowise.your-domain.xxx
 
-Login credentials will be displayed at the end of the installation process.
+> Данные для входа будут отображены в конце процесса установки.
 
-## Project structure
+## Структура проекта
 
-- `setup.sh` - main installation script
-- `setup-files/` - directory with helper scripts:
-  - `01-update-system.sh` - system update
-  - `02-install-docker.sh` - Docker installation
-  - `03-setup-directories.sh` - directory and user setup
-  - `04-generate-secrets.sh` - secret key generation
-  - `05-create-templates.sh` - configuration file creation
-  - `06-setup-firewall.sh` - firewall setup
-  - `07-start-services.sh` - service launch
-- `n8n-docker-compose.yaml.template` - docker-compose template for n8n and Caddy
-- `flowise-docker-compose.yaml.template` - docker-compose template for Flowise and GigaChat and VectorDB`s Qdrant PostgresSQL
+- `setup.sh` — основной установочный скрипт.
+- `setup-files/` — каталог со вспомогательными скриптами:
+  - `01-update-system.sh` — обновление системы.
+  - `02-install-docker.sh` — установка Docker.
+  - `03-setup-directories.sh` — настройка каталогов и пользователя.
+  - `04-generate-secrets.sh` — генерация секретных ключей.
+  - `05-create-templates.sh` — создание конфигурационных файлов.
+  - `06-setup-firewall.sh` — настройка брандмауэра.
+  - `07-start-services.sh` — запуск служб.
+- `n8n-docker-compose.yaml.template` — шаблон docker-compose для n8n и Caddy.
+- `flowise-docker-compose.yaml.template` — шаблон docker-compose для Flowise, GigaChat и VectorDB`s Qdrant PostgresSQL.
 
-## Managing services
+## Управление службами
 
-### Restarting services
+### Перезапуск служб
 
 ```bash
 docker compose -f n8n-docker-compose.yaml restart
 docker compose -f flowise-docker-compose.yaml restart
 ```
 
-### Stopping services
+### Остановка служб
 
 ```bash
 docker compose -f n8n-docker-compose.yaml down
 docker compose -f flowise-docker-compose.yaml down
 ```
 
-### Viewing logs
+### Просмотр логов
 
 ```bash
 docker compose -f n8n-docker-compose.yaml logs
 docker compose -f flowise-docker-compose.yaml logs
 ```
 
-## Security
+## Безопасность
 
-- All services are accessible only via HTTPS with automatically renewed Let's Encrypt certificates
-- Random passwords are created for n8n and Flowise
-- Users are created with minimal necessary privileges
+- Все службы доступны только по HTTPS с автоматически обновляемыми сертификатами Let's Encrypt.
+- Для n8n и Flowise создаются случайные пароли.
+- Пользователи создаются с минимально необходимыми привилегиями.
 
-## Troubleshooting
+## Устранение неполадок
 
-- Check your domain's DNS records to ensure they point to the correct IP address
-- Verify that ports 80 and 443 are open on your server
-- View container logs to detect errors
+- Проверьте DNS-записи вашего домена, чтобы убедиться, что они указывают на правильный IP-адрес.
+- Убедитесь, что на вашем сервере открыты порты 80 и 443.
+- Просмотрите логи контейнеров, чтобы обнаружить ошибки.
 
-## License
+## Лицензия
 
-This project is distributed under the MIT License.
+Этот проект распространяется под лицензией MIT License.
 
-## Author
+## Автор
 
 automat-ai based on @codegeek
+
 

@@ -4,7 +4,7 @@
 USER_EMAIL=$1
 DOMAIN_NAME=$2
 GENERIC_TIMEZONE=$3
-GIGACHAT_API=$4
+GIGACHAT_API=INSERT_GIGACHAT_API
 
 if [ -z "$USER_EMAIL" ] || [ -z "$DOMAIN_NAME" ]; then
   echo "ERROR: Email or domain name not specified"
