@@ -26,7 +26,7 @@
 
 1.  Клонируйте репозиторий:
     ```bash
-    git clone [https://github.com/automat-ai-git/local-automat-ai.git](https://github.com/automat-ai-git/local-automat-ai.git) && cd local-automat-ai
+    git clone https://github.com/automat-ai-git/local-automat-ai.git && cd local-automat-ai
     ```
 2.  Сделайте скрипт исполняемым:
     ```bash
@@ -54,8 +54,8 @@
 
 После завершения установки вы сможете получить доступ к службам по следующим URL-адресам:
 
-- **n8n**: https://n8n.your-domain.xxx
-- **Flowise**: https://flowise.your-domain.xxx
+- **n8n**: https://n8n.your-domain.ru
+- **Flowise**: https://flowise.your-domain.ru
 
 > Данные для входа будут отображены в конце процесса установки.
 
