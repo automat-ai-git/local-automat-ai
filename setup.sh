@@ -131,7 +131,7 @@ main() {
   echo "Username: postgres"
   echo "Database: postgres"
   echo "Host: postgres"
-  echo "Password: ${POSTGRES_PASSWORD:-<see the .env file>}"
+  echo "Password: ${POSTGRES_PASSWORD:-<check the .env file>}"
   echo ""
   echo "Ollama without any password and keys: base URL=> http://ollama:11434"
   echo "Qdrant without any password and keys: base URL=> http://qdrant:6333"
