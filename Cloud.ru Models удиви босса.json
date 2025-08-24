@@ -1,9 +1,9 @@
 {
-  "name": "Cloud.ru free models",
+  "name": "Cloud.ru",
   "nodes": [
     {
       "parameters": {},
-      "id": "ce0bd232-6aaa-419d-8b3f-740f7e67f704",
+      "id": "9976b0fb-5013-4b63-908f-0c0ccd2df900",
       "name": "Postgres Chat Memory",
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.1,
@@ -23,7 +23,7 @@
         "name": "documents",
         "topK": 3
       },
-      "id": "26ed1d3b-d10c-4180-a248-608102a1b219",
+      "id": "be7456fe-9e77-4632-8097-2159419775e6",
       "name": "Vector Store Tool",
       "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
       "typeVersion": 1,
@@ -36,7 +36,7 @@
       "parameters": {
         "model": "bge-m3:latest"
       },
-      "id": "e34443e3-da7e-4684-a1c8-cb86bd7f5548",
+      "id": "c0a7fe3c-4919-407b-a6b7-c3693d9af15a",
       "name": "Embeddings Ollama",
       "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
       "typeVersion": 1,
@@ -71,7 +71,7 @@
         },
         "options": {}
       },
-      "id": "5de6d609-cabe-45e1-95d6-a3e7a9b62be0",
+      "id": "d50ff27f-ca9d-41db-ae9a-e5eb15999a21",
       "name": "Set File ID",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -97,7 +97,7 @@
           }
         }
       },
-      "id": "73d140cd-be03-414e-8423-00d0b6dbd09b",
+      "id": "ffe9c9dd-5508-40ea-bef6-cccfe3fe9b52",
       "name": "Default Data Loader",
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
@@ -111,7 +111,7 @@
         "chunkSize": 100,
         "options": {}
       },
-      "id": "ff6e72b7-81b8-4fee-aec8-6b6ddd2369dc",
+      "id": "0e3bcb52-cf49-48f0-b46f-17231a9c308d",
       "name": "Recursive Character Text Splitter",
       "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
       "typeVersion": 1,
@@ -124,7 +124,7 @@
       "parameters": {
         "model": "bge-m3:latest"
       },
-      "id": "e7f29258-45a7-4cc3-9843-4c73f25bf895",
+      "id": "4f9ab989-b0ad-44aa-bd4e-a5431edfaa54",
       "name": "Embeddings Ollama1",
       "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
       "typeVersion": 1,
@@ -145,7 +145,7 @@
         "height": 527.3027193303974,
         "width": 969.0343804425795
       },
-      "id": "bb63709b-37a4-4c4e-848c-99c0ff05d943",
+      "id": "7b1160ef-a3b0-4a01-994f-9e00a7580e4c",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -161,7 +161,7 @@
         "width": 583.4552380860637,
         "color": 4
       },
-      "id": "3eb22f12-a81d-409f-9264-2679a535a856",
+      "id": "3ed0f9c5-5b96-49e6-b471-2933fb26da28",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -177,7 +177,7 @@
         "width": 1568.9362829025763,
         "color": 5
       },
-      "id": "43546ef1-28aa-4b52-92a7-ec35475dd09d",
+      "id": "12dd257f-0893-4a8f-acc5-67a00f6946cd",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -190,7 +190,7 @@
       "parameters": {
         "options": {}
       },
-      "id": "af39eba4-4486-4b57-b835-a5b6e7409439",
+      "id": "9bcc00a1-717e-41df-b684-f5f3f02810eb",
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
@@ -210,7 +210,7 @@
         },
         "options": {}
       },
-      "id": "f23cc36f-b53a-440a-8971-cd9b40897518",
+      "id": "e5bfd0e1-fd80-4934-b624-83d093e79cea",
       "name": "Qdrant Vector Store",
       "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
       "typeVersion": 1,
@@ -248,7 +248,7 @@
           ]
         }
       },
-      "id": "19de74af-cc6a-4f30-8a47-dd2dc94d56d2",
+      "id": "5a455fc8-0c07-4a33-87b0-3d6007274c5a",
       "name": "Clear Old Vectors",
       "type": "@n8n/n8n-nodes-langchain.code",
       "typeVersion": 1,
@@ -269,7 +269,7 @@
         },
         "options": {}
       },
-      "id": "b86c443b-c01d-440a-8922-75e517490f02",
+      "id": "938a910c-5f7d-4014-8f4d-4d84f41c92a1",
       "name": "Qdrant Vector Store Insert",
       "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
       "typeVersion": 1,
@@ -287,10 +287,10 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Всегда обращайся к Vector Store Tool для поиска ответа на вопрос пользователя {{ $json.chatInput }}". Если ответа на вопрос нет, отвечай: \"не знаю\"",
+        "text": "=Всегда обращайся к Vector Store Tool для поиска ответа на вопрос пользователя {{ $json.chatInput }}. Если ответа на вопрос нет, отвечай: \"не знаю\"",
         "options": {}
       },
-      "id": "0bccfd0a-aff6-45e0-9f0e-e89d635aeed5",
+      "id": "186bb78a-9f5c-426c-b16f-95fed6341320",
       "name": "AI Agent",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.6,
@@ -319,7 +319,7 @@
         },
         "options": {}
       },
-      "id": "036fe624-168a-4ea7-8ed9-9526ba295c7d",
+      "id": "c69d6de0-3ae7-46db-bfa7-f502cdab0d7c",
       "name": "Edit Fields",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
@@ -357,7 +357,7 @@
         560,
         672
       ],
-      "id": "1c0eafaf-1b67-4930-8557-176070f9055e",
+      "id": "4828bb82-67fe-4596-aa7d-6d451af8f8be",
       "name": "Ya_disk_File_link"
     },
     {
@@ -377,7 +377,7 @@
         784,
         672
       ],
-      "id": "a4fae016-1890-4dcd-8d63-2d44d5e4b12c",
+      "id": "f6245c89-4656-4f7d-8c20-d2add1891bf3",
       "name": "Ya_File_Download"
     },
     {
@@ -385,7 +385,7 @@
         "operation": "text",
         "options": {}
       },
-      "id": "6351f75d-d35d-48c6-887e-adedb50984c2",
+      "id": "b88fe3e6-1ce3-48ff-a679-967b9cb4caf1",
       "name": "Extract Document Text1",
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
@@ -403,7 +403,7 @@
         -48,
         672
       ],
-      "id": "1395b434-73c2-4f10-b783-021d4d33f73f",
+      "id": "30a110e9-519f-4e31-9420-590135afcec5",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -422,7 +422,7 @@
         1440,
         272
       ],
-      "id": "a8ec3c41-a65e-4ac6-b1ff-ecb862328126",
+      "id": "264f699c-ae39-4c5c-88c9-d93a066b193e",
       "name": "Cloud.ru Model",
       "credentials": {
         "openAiApi": {
@@ -447,7 +447,7 @@
         304,
         336
       ],
-      "id": "c8b41927-2349-4353-8933-723f7ef8a45b",
+      "id": "21f74b3e-4c63-448f-9654-e933dee2d111",
       "name": "Cloud.ru Model1",
       "credentials": {
         "openAiApi": {
@@ -651,11 +651,10 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "8f0bcf6b-329a-4566-85d9-6b8a2752e5e9",
+  "versionId": "befd66be-5044-46e5-aec5-317da815b7fd",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "bd51b6b74b4c5bc77f0997eecd0935518cf438cc7bba4adcc58f13feda0b29ab"
   },
-  "id": "CbYSjzOOvq38irCi",
+  "id": "qLN4o0LA4xKFeOjP",
   "tags": []
 }
