@@ -29,7 +29,7 @@ services:
       - N8N_DEFAULT_USER_EMAIL=${N8N_DEFAULT_USER_EMAIL}
       - N8N_DEFAULT_USER_PASSWORD=${N8N_DEFAULT_USER_PASSWORD}
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
-	  - WEBHOOK_URL=${N8N_HOSTNAME:+https://}${N8N_HOSTNAME:-http://localhost:5678}
+      - WEBHOOK_URL=${N8N_HOSTNAME:+https://}${N8N_HOSTNAME:-http://localhost:5678}
     ports:
       - 5678:5678    
     volumes:
