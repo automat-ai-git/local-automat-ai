@@ -27,6 +27,29 @@ volumes:
   qdrant_storage:
   db-data:
 
+x-ollama: &service-ollama
+  image: ollama/ollama:latest
+  restart: unless-stopped
+  expose:
+    - 11434/tcp
+  volumes:
+    - ollama_storage:/root/.ollama
+  environment:
+    - OLLAMA_MAX_LOADED_MODELS=1
+  networks:
+    - app-network
+
+x-init-ollama: &init-ollama
+  image: ollama/ollama:latest
+  volumes:
+    - ollama_storage:/root/.ollama
+  entrypoint: /bin/sh
+  command:
+    - "-c"
+    - "sleep 3; OLLAMA_HOST=ollama:11434 ollama pull qwen3:0.6b; OLLAMA_HOST=ollama:11434 ollama pull bge-m3"
+  networks:
+    - app-network
+
 services:
   n8n:
     image: n8nio/n8n:latest
@@ -47,8 +70,8 @@ services:
       - N8N_DEFAULT_USER_PASSWORD=\${N8N_DEFAULT_USER_PASSWORD}
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
       - WEBHOOK_URL=https://n8n.\${DOMAIN_NAME}
-      ports:
-      - 5678:5678 
+    ports:
+      - 5678:5678
     volumes:
       - n8n_data:/home/node/.n8n
       - /opt/n8n/files:/files
@@ -109,19 +132,18 @@ services:
       - caddy_config:/config
     networks:
       - app-network
-
+  
   ollama:
-    image: ollama/ollama:latest
-    ports:
-      - 11434:11434
-    restart: unless-stopped
-    volumes:
-      - ollama_storage:/root/.ollama
+    <<: *service-ollama
     container_name: ollama
-    environment:
-      - OLLAMA_MAX_LOADED_MODELS=1
-    networks:
-      - app-network
+    ports:
+      - "11434:11434"
+
+  ollama-init:
+    <<: *init-ollama
+    container_name: ollama-init
+    depends_on:
+      - ollama
 
 networks:
   app-network:

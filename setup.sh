@@ -108,7 +108,7 @@ main() {
   # Load generated passwords
   N8N_PASSWORD=""
   FLOWISE_PASSWORD=""
-#  POSTGRES_PASSWORD=""
+  POSTGRES_PASSWORD=""
   if [ -f "./setup-files/passwords.txt" ]; then
     source ./setup-files/passwords.txt
   fi

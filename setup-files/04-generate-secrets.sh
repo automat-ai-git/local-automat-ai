@@ -109,7 +109,7 @@ echo "Password for Postgres: $POSTGRES_PASSWORD"
 # Save passwords for future use - using quotes to properly handle special characters
 echo "N8N_PASSWORD=\"$N8N_PASSWORD\"" >> ./setup-files/passwords.txt
 echo "FLOWISE_PASSWORD=\"$FLOWISE_PASSWORD\"" >> ./setup-files/passwords.txt
-echo "POSTRGRES_PASSWORD=\"$POSTGRES_PASSWORD\"" >> ./setup-files/passwords.txt
+echo "POSTGRES_PASSWORD=\"$POSTGRES_PASSWORD\"" >> ./setup-files/passwords.txt
 
 echo "✅ Secret keys and passwords successfully generated"
 

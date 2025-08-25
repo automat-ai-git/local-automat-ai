@@ -64,9 +64,9 @@ if ! sudo docker ps | grep -q "flowise"; then
 fi
 
 echo ""
-echo "Ollama pull models"
-docker exec -it ollama ollama pull qwen3:0.6b
-docker exec -it ollama ollama pull bge-m3
+echo "Ollama will pull models after init"
+#docker exec -it ollama ollama pull qwen3:0.6b
+#docker exec -it ollama ollama pull bge-m3
 
 echo "✅ Services n8n, Flowise and Caddy successfully started"
 exit 0 
