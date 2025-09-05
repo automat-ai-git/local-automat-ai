@@ -85,8 +85,8 @@ docker compose -f flowise-docker-compose.yaml restart
 ### Остановка служб
 
 ```bash
-docker compose -f n8n-docker-compose.yaml down
-docker compose -f flowise-docker-compose.yaml down
+docker compose -f n8n-docker-compose.yaml stop
+docker compose -f flowise-docker-compose.yaml stop
 ```
 
 ### Просмотр логов
@@ -94,6 +94,26 @@ docker compose -f flowise-docker-compose.yaml down
 ```bash
 docker compose -f n8n-docker-compose.yaml logs
 docker compose -f flowise-docker-compose.yaml logs
+```
+
+### Обновление программ и сервисов
+
+Останавливаем и удаляем контейнеры
+```bash
+docker compose -f flowise-docker-compose.yaml down
+docker compose -f n8n-docker-compose.yaml down
+```
+
+Обновляем контейнеры до последней версии
+```bash
+docker compose -f n8n-docker-compose.yaml pull
+docker compose -f flowise-docker-compose.yaml pull
+```
+
+Запускаем обновлённую версию
+```bash
+docker compose -f n8n-docker-compose.yaml up -d
+docker compose -f flowise-docker-compose.yaml up -d
 ```
 
 ## Безопасность
