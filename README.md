@@ -98,19 +98,19 @@ docker compose -f flowise-docker-compose.yaml logs
 
 ### Обновление программ и сервисов
 
-Останавливаем и удаляем контейнеры
+1. Останавливаем и удаляем контейнеры
 ```bash
 docker compose -f flowise-docker-compose.yaml down
 docker compose -f n8n-docker-compose.yaml down
 ```
 
-Обновляем контейнеры до последней версии
+2. Обновляем контейнеры до последней версии
 ```bash
 docker compose -f n8n-docker-compose.yaml pull
 docker compose -f flowise-docker-compose.yaml pull
 ```
 
-Запускаем обновлённую версию
+3. Запускаем обновлённую версию
 ```bash
 docker compose -f n8n-docker-compose.yaml up -d
 docker compose -f flowise-docker-compose.yaml up -d
