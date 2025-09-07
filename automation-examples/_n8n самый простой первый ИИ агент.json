@@ -1,0 +1,234 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        176
+      ],
+      "id": "b50c5a6d-72fc-441e-a86f-2f16c4b77828",
+      "name": "GigaChat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "qBV1fSVl2LOQDbxr",
+          "name": "GigaChat account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTimeTool",
+      "typeVersion": 2,
+      "position": [
+        320,
+        400
+      ],
+      "id": "dd7ef58f-e405-421c-b37c-ff346b60802b",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Вы — ИИ-ассистент, созданный для помощи пользователям с использованием различных инструментов и вашей памяти.\n\nВ ваши возможности входит:\n\nДоступ к информации: Вы можете искать информацию в реальном времени с помощью инструмента «Search in Tavily».\nУзнать текущие дату и время: Используйте инструмент \"Date and Time\"\nДля точных математических вычислений используй инструмент \"Calculator\"\n\n...\n\nИнструкции:\n\nПоймите намерение пользователя: Внимательно проанализируйте сообщение пользователя, чтобы определить, о чем он спрашивает.\n\n...\n\nПримеры запросов пользователя и ожидаемое поведение бота:\n\nПользователь: «Какая столица Франции?»\n\nДействие бота: Использует «Search in Tavily», чтобы найти столицу Франции.\n\n...\n\nПользователь: «Какая сегодня погода в Москве?»\n\nДействие бота: Обязательно использует \"Date and Time\" и использует «Search in Tavily», чтобы посмотреть прогноз погоды.\n\n...\n\nНачните с приветствия пользователя и спросите, чем вы можете ему помочь. Вопрос пользователя:\n{{ $json.chatInput }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        144,
+        16
+      ],
+      "id": "b9f7ce7a-b206-4370-bab7-2af6ee26ed7f",
+      "name": "AI-BOSS.online"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        16
+      ],
+      "id": "0be7dc40-f66e-41aa-867e-7aa701cc0329",
+      "name": "Чат-бот",
+      "webhookId": "0889b597-bc90-4d46-9ee7-b055b100d243"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+          "mode": "list",
+          "cachedResultName": "Qwen/Qwen3-235B-A22B-Instruct-2507"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        224
+      ],
+      "id": "dbcde50b-f4dc-46ac-b101-be74fbfb7f41",
+      "name": "Cloud.ru model",
+      "credentials": {
+        "openAiApi": {
+          "id": "PE0zZDGeDLGbJYrJ",
+          "name": "Cloud.ru account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        240,
+        240
+      ],
+      "id": "b2b2613c-ab56-4f19-a450-972558cde7e8",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Query', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "@tavily/n8n-nodes-tavily.tavilyTool",
+      "typeVersion": 1,
+      "position": [
+        432,
+        240
+      ],
+      "id": "b24355ab-5699-4854-a369-921784d65451",
+      "name": "Search in Tavily",
+      "credentials": {
+        "tavilyApi": {
+          "id": "U7bwirSLHOvSXTLq",
+          "name": "Tavily account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        336
+      ],
+      "id": "ad739d45-d6cb-4365-820d-65f5ce36cca5",
+      "name": "Postgres memory",
+      "credentials": {
+        "postgres": {
+          "id": "26ykkTPq8E0Wey6T",
+          "name": "Postgres account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "GigaChat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Date & Time": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI-BOSS.online",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Чат-бот": {
+      "main": [
+        [
+          {
+            "node": "AI-BOSS.online",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI-BOSS.online": {
+      "main": [
+        []
+      ]
+    },
+    "Cloud.ru model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI-BOSS.online",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI-BOSS.online",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search in Tavily": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI-BOSS.online",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI-BOSS.online",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "545c442b-979e-41c8-ba73-0c24e8cbdd13",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b29400d6b1218b37ea3d49d8599fa59b574ad6180b491d767e27bfc01d499001"
+  },
+  "id": "qUVzjWlYYHwraTB4",
+  "tags": []
+}
